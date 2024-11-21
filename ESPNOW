@@ -1,0 +1,22 @@
+
+import esp
+import machine
+
+esp.now_init()
+
+receptor_mac = b'\x02\x12\x34\x56\x78\x90'
+
+def enviar_datos(datos):
+    esp.now_send(receptor_mac, datos)
+
+def recibir_datos():
+    datos = esp.now_recv()
+    if datos:
+        print("Datos recibidos:", datos)
+
+datos_a_enviar = b"Hola, mundo!"
+enviar_datos(datos_a_enviar)
+
+while True:
+    recibir_datos()
+    machine.delay(100)
